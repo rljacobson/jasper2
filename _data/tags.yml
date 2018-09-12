@@ -1,16 +1,16 @@
-speeches:
-  name: speeches
-  description: Some of the greatest words ever spoken.
-  cover: assets/images/speeches.jpg
-fiction:
-  name: fiction
-  description: False
-  cover: False
-fables:
-  name: fables
-  description: A series of short stories that make you think.
-  cover: assets/images/fables.jpg
-getting-started:
-  name: getting-started
-  description: False
-  cover: False
+mathematics:
+  name: mathematics
+  description: Mathematics related articles.
+  cover: assets/images/tags/mathematics.jpg
+computer-science:
+  name: computer-science
+  description: Articles related to computer science.
+  cover: assets/images/tags/DifferenceEngine.jpg
+education:
+  name: education
+  description: Thoughts on teaching and learning, especially of mathematics.
+  cover: assets/images/tags/education.jpg
+compilers:
+  name: compilers
+  description: The theory and engineering of programs that perform translation of formal languages.
+  cover: assets/images/tags/RosettaStone.jpg
