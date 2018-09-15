@@ -15,9 +15,13 @@ author: robert
 
 *What is the definition of the Wolfram Language?* This is the first in a series of articles attempting to answer this question.<!--more--> 
 
-What *is* a programming language, really? Most programming languages in production use, like C++ or Javascript, have some kind of formal specification that defines the language that each implementation (e.g. each compiler or web browser) must adhere to. Many languages also have a "reference implementation" of the language whose source code could be studied, at least in principle, to determine precisely how the language works. Wolfram Language, the programming language of Mathematica, has neither of these things. 
+What *is* a programming language, really? Most programming languages in production use, like C++ or Javascript, have some kind of formal specification that defines the language that each implementation (e.g. each compiler or web browser) must adhere to. Many languages also have a "reference implementation" of the language whose source code could be studied, at least in principle, to determine precisely how the language works. [Wolfram Language](https://www.wolfram.com/language/), the programming language of [Mathematica](http://www.wolfram.com/mathematica/), has neither of these things. 
 
-But what if it did? What would a language specification look like for Wolfram Language? If you were tasked with writing the spec, how would you do it, and what choices would you make? This is how we shall imagine ourselves throughout this series of articles: as language documentarians reconstructing the syntactic and semantic structure of Wolfram Language from its usage alone.
+But what if it did? What would a language specification look like for Wolfram Language? If you were tasked with writing the spec, how would you do it, and what choices would you make? This is how we shall imagine ourselves throughout this series of articles: as language documentarians reconstructing the syntactic and semantic structure of Wolfram Language from its usage.
+
+
+Some of the information in this series grew out of my work on [FoxySheep](https://github.com/rljacobson/FoxySheep), an open source parser for the Wolfram Language. Parts [1](defining-the-wolfram-language-part-1-finding-operators) and [2](defining-the-wolfram-language-part-2-operator-properties) began life as an answer I submitted to [mathematica.stackexchange.com](https://mathematica.stackexchange.com/a/180033/27662). I try to keep the answer up to date.
+
 
 ## The Impossibility Problem
 
@@ -57,5 +61,4 @@ Rigorously describing a programming language with only a single proprietary impl
 <a name="intellij">[1]</a>:
 A great example of this is the [Mathematica plugin for the IntelliJ suite of IDEs from JetBrains](http://wlplugin.halirutan.de/). The Mathematica plugin is essentially the work of one person, Patrick Scheibe, but is enjoyed by tens of thousands of users. [↩](#a1)
 
-<a name="arrival">[2]</a>: Stephan Wolfram, "Quick, How Might the Alien Spacecraft Work?," November 10, 2016.
-http://blog.stephenwolfram.com/2016/11/quick-how-might-the-alien-spacecraft-work/  [↩](#a2)
+<a name="arrival">[2]</a>: Stephan Wolfram, "[Quick, How Might the Alien Spacecraft Work?](http://blog.stephenwolfram.com/2016/11/quick-how-might-the-alien-spacecraft-work/)," blog post, November 10, 2016. [↩](#a2)

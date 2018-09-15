@@ -9,15 +9,13 @@ class: post-template
 subclass: 'post tag-computer-science'
 navigation: True
 comments: True
+MathJax: True
 author: robert
 ---
 
 In this third installment of our *n* part series, "Defining the Wolfram Language," we begin to study the properties, namely the arity, affix, associativity, and precedence, of the Mathematica operators we found in Part 1. If we ended Part 1 proud of our accomplishment—perhaps even a little smug—then we will get reacquainted with our humility in this article.<!--more--> 
 
-For a refresher on what is meant by the words operator, arity, affix, associativity, and precedence, see [Part 2](http://robertjacobson.herokuapp.com/blog/2018/09/03/defining-the-wolfram-language-part-1-terminology/) of this series.
-
-[The information in this series grew out of my work on FoxySheep, an open source parser for the Wolfram Language. Parts 1 and 2 began life as an answer I submitted to [mathematica.stackexchange.com](https://mathematica.stackexchange.com/a/180033/27662). I try to keep the answer up to date.]
-
+For a refresher on what is meant by the words operator, arity, affix, associativity, and precedence, see [Generalizing PEMDAS: What is an operator?](generalizing-pemdas-what-is-an-operator)
 
 ## Programmatically determining properties of operators
 
@@ -29,40 +27,62 @@ Precedence is a lot harder. I have implemented a strategy that compares two oper
 
 Two synonyms of the same operator:
 
-    FullForm[Hold[a\[Conditioned]b<->c]]
-    FullForm[Hold[a\[Conditioned]b\[TwoWayRule]c]]
->     Hold[Conditioned[a,TwoWayRule[b,c]]]
->     Hold[TwoWayRule[Conditioned[a,b],c]]
+{% highlight wolfram %}
+{% raw %}
+In[1]:= FullForm[Hold[a\[Conditioned]b<->c]]
+In[2]:= FullForm[Hold[a\[Conditioned]b\[TwoWayRule]c]]
+
+Out[1]= Hold[Conditioned[a,TwoWayRule[b,c]]]
+Out[2]= Hold[TwoWayRule[Conditioned[a,b],c]]
+{% endraw %}
+{% endhighlight %}
 
 The *only* binary operator that cannot be parsed like this:
 
-    a \[DirectedEdge] b \[UndirectedEdge] c
+{% highlight wolfram %}
+{% raw %}
+In[1]:= a \[DirectedEdge] b \[UndirectedEdge] c
     
->     Syntax::tsntxi: "a\[DirectedEdge]b\[UndirectedEdge]c" is incomplete; more input is needed.
+Out[1]= Syntax::tsntxi: "a\[DirectedEdge]b\[UndirectedEdge]c" is incomplete; more input is needed.
+{% endraw %}
+{% endhighlight %}
+
 
 This next one is not uncommon:
 
-    FullForm[Hold[a \[LeftTee] b \[UpTee] c]]
-    FullForm[ToExpression["Hold[a \[LeftTee] b \[UpTee] c]"]]
+{% highlight wolfram %}
+{% raw %}
+In[1]:= FullForm[Hold[a \[LeftTee] b \[UpTee] c]]
+In[2]:= FullForm[ToExpression["Hold[a \[LeftTee] b \[UpTee] c]"]]
     
->     Hold[LeftTee[a,UpTee[b,c]]]
->     Hold[UpTee[LeftTee[a,b],c]]
+Out[1]= Hold[LeftTee[a,UpTee[b,c]]]
+Out[2]= Hold[UpTee[LeftTee[a,b],c]]
+{% endraw %}
+{% endhighlight %}
 
-There are several differences between the notebook and command line interfaces, and `ToExpression` appears to precisely mirror those differences. Perhaps the command line and `ToExpression` have the same parser. Whatever the case, we cannot assume that a 
+There are several differences between the notebook and command line interfaces, and `ToExpression` appears to precisely mirror those differences. Perhaps the command line and `ToExpression` have the same parser. Whatever the case, we cannot assume that a piece of code will execute the same way on the command line as it will through the notebook interface.
 
 Many operators do not have a `FullForm` (unevaluated interpretation) equal to the functions they represent. Consider `Divide`:
 
-    (* Give the Head of the first element within Hold. *)
-    Hold[a/b][[1, 0]]
+{% highlight wolfram %}
+{% raw %}
+In[1]:= (* Give the Head of the first element within Hold. *)
+        Hold[a/b][[1, 0]]
     
->     Times
+Out[1]= Times
+{% endraw %}
+{% endhighlight %}
 
 Considering this one fact alone, whatever strategy one uses to inspect an instantiated expression to determine precedence will have to account for every special case of how the `FullForm` of each operator might interact with that of another in a nongeneric way. The amount of manual labor one has to do to account for this is $Ω(n^2)$, where $n$ is the number operators.
 
 Then there is the case of `GreaterSlantEqual` and `LessSlantEqual`, both the symbols and their corresponding functions. The short version is, these two symbols are now disassociated from their corresponding functions, which functions now have no operator notation despite the insistance of the documentation. To be clear, I think it's the right move to remap the `*SlantEqual` symbols to `>=` and `<=`, but...  
 
-## Conclusion
+## Wolfram Language as Language
 
-At the end of the day, there just is no public language specification for Mathematica/Wolfram Language. In a sense, the language is *defined to be* whatever Mathematica does. And what Mathematica does on the command line may differ from what it does in the notebook, which may differ from the behavior of ToExpression and friends, all of which may differ from the documentation, which itself may be inconsistent—and all of this in just a single version (v11.3) on a single platform (macos).
+We have seen that, even in a single version on a single platform, Mathematica itself does not always interpret Wolfram Language consistently in several dimensions:
 
-So the answer is, no, you cannot determine precedence programmatically, or any other way, for that matter.
+1. The notebook interface versus `ToExpression` and command line
+2. Operator synonyms
+3. With respect to the documentation
+4. Associated (defining) functions of each operator versus how the input is immediately (re)interpreted; possibly equivalently, an expression's `FullForm` versus the literal interpretation of the expression as an application of its associated (defining) function
+

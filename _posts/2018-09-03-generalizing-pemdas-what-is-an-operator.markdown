@@ -32,10 +32,10 @@ The [arity](https://en.wikipedia.org/wiki/Arity) of an operator is just a fancy 
 | Unary  | Factorial: `!` | $3! = 3 \cdot 2 \cdot 1 = 6$ |
 | Binary | Addition: `+` | $2 + 4 = 6$ |
 | Ternary | The conditional operator <br>found in many languages: <br>`a ? b : c` | `// if a>b then x else y` <br>`result = a > b ? x : y; `|
-| Variadic <br>(takes a variable number of arguments) | Lists: `{x, y, ...}` | `{ }` (empty list); `{2, 3, 5, 7, 11}` |
-| $n$-ary <br>(takes $n$ arguments) | A function of $n$ arguments: $f(a_1, a_2, \ldots, a_n)$ | `DeleteCases[expr, pattern,`<br>` levelspec, n]` |
+| Variadic <br>(takes a variable number <br>of arguments) | Lists: `{x, y, ...}` | `{ }` (empty list); <br>`{2, 3, 5, 7, 11}` |
+| $n$-ary <br>(takes $n$ arguments) | A function of $n$ arguments:<br> $f(a_1, a_2, \ldots, a_n)$ | `DeleteCases[expr, pattern,`<br>` levelspec, n]` |
 
-We will occassionally abuse the language above by using *variadic* when we mean *n-ary* and vice versa. The Wikipedia article on [arity](https://en.wikipedia.org/wiki/Arity) has a long list of names for different arities.
+You will occassionally see authors abuse the language above by using *n-ary* to mean *variadic*. The Wikipedia article on [arity](https://en.wikipedia.org/wiki/Arity) has a long list of obscure names for different arities.
 
 ### Affix
 
@@ -46,7 +46,7 @@ The *affix* of an operator refers to the operator's position within an expressio
 | Prefix: precedes its operand(s) | Unary minus: `-` | $-7$ |
 | Postfix: follows its operand(s) | Factorial: `!` | $3!$ |
 | Infix: between its operands | Addition: `+` | $2 + 4$ |
-| Matchfix (Circumfix): surrounds its operand(s) | Floor function: $\lfloor{\;}\rfloor$ |  $\lfloor{2.78}\rfloor = 2$ |
+| Matchfix (Circumfix): surrounds its operand(s) | Floor function: `⌊ ⌋` |  $\lfloor{2.78}\rfloor = 2$ |
 
 The affix of operators with more than two operands defy easy categorization. To illustrate, suppose we wish to invent our own ternary operator, and we have the symbols `@`, `#`, `$`, and `&` available to use to represent our operator if we need them. If `a`, `b`, and `c` are operands, then we could define the operator as `@ a # b $ c &` or `a # b $ c &` or `@ a # b $ c` or `a # b $ c`. Or instead of using different symbols to separate the operands, we could use just one symbol, as Mathematica does with the `Span` operator: `i ;; j ;; k`. 
 
@@ -56,7 +56,7 @@ The *associativity* of an operator determines how an operator *groups* with expr
 
 ### Precedence
 
-You may recall from elementary school that some mathematical operators must be done before others. In the expression  $2+3\times 5$, for example, we need to multiply the 3 by 5 before we do the addition: $2+3\times 5 = 2+(3\times 5) = 2+15 = 17$. If we fail to follow the correct order of operations, we are likely to get the wrong answer: $2+3\times 5 \neq (2 + 3) \times 5 = 5 \times 5 = 25 \neq 17$. School children learn the correct order of operations by remembering the initialism "PEMDAS" or, "_P_lease _E_xcuse _M_y _D_ear _A_unt _S_ally," which assigns the arithmetic operators the precedence:
+You may recall from elementary school that some mathematical operators must be done before others. In the expression  $2+3\times 5$, for example, we need to multiply the 3 by 5 before we do the addition: $2+3\times 5 = 2+(3\times 5) = 2+15 = 17$. If we fail to follow the correct order of operations, we are likely to get the wrong answer: $2+3\times 5 \neq (2 + 3) \times 5 = 5 \times 5 = 25 \neq 17$. School children learn the correct order of operations by remembering the initialism "PEMDAS" or, "<u>P</u>lease <u>E</u>xcuse <u>M</u>y <u>D</u>ear <u>A</u>unt <u>S</u>ally," which assigns the arithmetic operators the precedence:
 
 1. Parentheses
 2. Exponents
@@ -71,4 +71,4 @@ An equivalent way of thinking of the precedence of an operator is as the "bindin
 
 ## Conclusion
 
-The arity, affix, associativity, and precedence of an operator are essential to know in order to determine which parts of an expression a given operator is acting on and therefore how the expression should be evaluated. Our goal in the next article will be to discover all of the operators that exist in the Wolfram Language and determine the arity, affix, associativity, and precedence of each.
+The arity, affix, associativity, and precedence of an operator are essential to know in order to determine which parts of an expression a given operator is acting on and therefore how the expression should be evaluated. A parser for a programming language is responsible for correctly interpreting its input according to these operator properties. In fact, some parsing strategies rely entirely on operator properties to interpret the meaning of expressions in programs. 

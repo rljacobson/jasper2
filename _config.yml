@@ -4,6 +4,11 @@ highlighter: pygments
 paginate: 100 # it will paginate after this number
 language: 'en-us'
 
+kramdown:
+  # use Github Flavored Markdown
+  input: "GFM"
+
+
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
 baseurl: /
 
@@ -76,8 +81,8 @@ lsi: False
 username: rljacobson
 repo: blog
 branch: master
-relative_source: ../blog/
-destination: ../jasper2-pages/
+relative_source: .
+destination: _site/
 production_url:  https://rljacobson.github.io/blog/
 source_url:  https://github.com/rljacobson/blog/
 

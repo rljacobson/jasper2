@@ -15,13 +15,11 @@ author: robert
 
 # Finding All Wolfram Language Operators
 
-In this second article, Part 1 of an *n* part series on *Defining the Wolfram Language*, we start getting our hands dirty hunting down every single operator in Mathematica and each operator's linguistic properties. To my knowledge, nobody outside of Wolfram has created such an exhaustive list before.<!--more--> The operator properties we hope to document are arity, affix, associativity, and precedence. In the next article,  [Part 2](/blog/2018/09/03/defining-the-wolfram-language-part-1-terminology/), we will define and discuss the signficance of these linguistic properties of operators for programming languages generally. If these terms are foreign to you, do not worry, you will not need to know what these terms mean for this article, but you can read the next article before reading Part 1 without any confusion.
-
-[The information in this series grew out of my work on FoxySheep, an open source parser for the Wolfram Language. Parts 1 and 2 began life as an answer I submitted to [mathematica.stackexchange.com](https://mathematica.stackexchange.com/a/180033/27662). I try to keep the answer up to date.]
+In this second article, Part 1 of an *n* part series on *Defining the Wolfram Language*, we start getting our hands dirty hunting down every single operator in Mathematica and each operator's linguistic properties. To my knowledge, nobody outside of Wolfram has created such an exhaustive list before.<!--more--> The operator properties we hope to document are arity, affix, associativity, and precedence. In the next article, "[Generalizing PEMDAS: What is an operator?](/blog/2018/09/03/defining-the-wolfram-language-part-1-terminology/)," we will define and discuss the signficance of these linguistic properties of operators for programming languages generally. If these terms are foreign to you, do not worry, you will not need to know what these terms mean for this article, but you can read the next article before reading Part 1 without any confusion.
 
 ## Data Sources
 
-It is surprisingly difficult to get accurate information about all Wolfram Language operators implemented in Mathematica. There are a few different sources of information about operators and their properties. I list all known sources (as of August 2018) in the table below, the last two of which appear to be described nowhere else on the public internet. We will explore these sources in more detail in the remainder of this section.
+It is surprisingly difficult to get accurate information about all Wolfram Language operators implemented in Mathematica. There are a few different sources of information about operators and their properties. I list all publicly known sources (as of August 2018) in the table below, the last two of which appear to be described nowhere else on the public internet. We will explore these sources in more detail in the remainder of this section.
 
 | Source | Description |
 |--------|-------------|
@@ -61,34 +59,34 @@ For most purposes, we should look to [`WolframLanguageData[]`](https://reference
 
 I have found that the precedence rank returned by [`WolframLanguageData[]`](https://reference.wolfram.com/language/ref/WolframLanguageData.html) is more accurate than the `Precedence` function. As a bonus, `WolframLanguageData` gives you really nice operator synonym, usage, and FullForm data, and programmatic access to all kinds of information related to Mathematica functions and their documentation.
 
-```mma
-WolframLanguageData["Power", "PrecedenceRanks"]
-```
-
+{% highlight wolfram %}
 {% raw %}
-```mma    
-{{expr1\_expr2\%expr3, Power[Subscript[expr1,expr2],expr3]}->8,
-{expr1^expr2, Power[expr1,expr2]}->21,
-{expr1^expr2, Power[expr1,expr2]}->21,
-{expr1^expr2, Power[expr1,expr2]}->21,
-{Subsuperscript[expr1, expr2, expr3],
- Power[Subscript[expr1,expr2],expr3]}->21,
-{expr1\^expr2\%expr3, Power[Subscript[expr1,expr3],expr2]}->21,
-{\@expr\%n,Power[expr,Power[n,-1]]}->22}
-```
-{% endraw %}
+In[1]:= WolframLanguageData["Power", "PrecedenceRanks"]
 
+Out[1]= {{expr1\_expr2\%expr3, Power[Subscript[expr1,expr2],expr3]}->8,
+        {expr1^expr2, Power[expr1,expr2]}->21,
+        {expr1^expr2, Power[expr1,expr2]}->21,
+        {expr1^expr2, Power[expr1,expr2]}->21,
+        {Subsuperscript[expr1, expr2, expr3],
+            Power[Subscript[expr1,expr2],expr3]}->21,
+        {expr1\^expr2\%expr3, Power[Subscript[expr1,expr3],expr2]}->21,
+        {\@expr\%n,Power[expr,Power[n,-1]]}->22}
+{% endraw %}
+{% endhighlight %}
 
 Another bonus of `WolframLanguageData` is that you do not already have to know the name of every function with an operator. You can ask `WolframLanguageData` to just give you everything in its database, which includes the box sublanguage. The following will generate a list for you. Be warned that it will download data for all 5,000+ functions and ultimately give you a list of 135 (as of August 2018) `{name, rankdata, shortnotation}` triples:
 
-     Select[
-         WolframLanguageData[
-             WolframLanguageData["Entities"], 
-             {"Name", "PrecedenceRanks", "ShortNotations"}
-         ], 
-         #[[2]] =!= Missing["NotApplicable"] &
-     ]
-
+{% highlight wolfram %}
+{% raw %}
+In[1]:= Select[
+            WolframLanguageData[
+                WolframLanguageData["Entities"], 
+                {"Name", "PrecedenceRanks", "ShortNotations"}
+            ], 
+            #[[2]] =!= Missing["NotApplicable"] &
+        ]
+{% endraw %}
+{% endhighlight %}
 
 The `"ShortNotations"` data provided by `WolframLanguageData` leaves a lot to be desired, and while arity and affix are usually apparent from the usage data, `WolframLanguageData` usually does not provide enough information to deduce operator associativity. Unfortunately, `WolframLanguageData` will not give you every operator, either. However, this is the *only* source outside of the documentation itself that gives all multicharacter box operators. With some effort, it is possible to use `WolframLanguageData` to programmatically extract even more information about operators from the documentation, but the information earned by this effort is much easier to obtain elsewhere.
 
@@ -118,27 +116,41 @@ This is everything we could hope to know about the linguistics of an operator—
 
 This code snippet reads the data from `UnicodeCharacters.tr` into the variable `chars`:<sup style="font-weight:bolder" id="a2" name="a2">[2](#mrwizard)</sup>
 
-    chars = ReadList[
-        System`Dump`unicodeCharactersTR, 
-        Word, WordSeparators -> {"\t\t"},
-        RecordLists -> True
-    ];
+{% highlight wolfram %}
+{% raw %}
+In[1]:= chars = ReadList[
+            System`Dump`unicodeCharactersTR, 
+            Word, WordSeparators -> {"\t\t"},
+            RecordLists -> True
+        ];
+{% endraw %}
+{% endhighlight %}
 
 We can filter out non-operators using the Class/Affix column. Let's look at the unique values in that column.
 
-    Union[Select[chars, Length[#] >= 4 &][[All, 4]]]
-    
->     {"Alias", "Auto", "Close", "CompoundPrefix", "Infix",
->     "InfixOpen", "LargeOp:Prefix", "Letter", "NonBreakingAfterLetter", 
->     "NonBreakingBeforeLetter", "Open", "Postfix", "Prefix", "WhiteSp"}
+{% highlight wolfram %}
+{% raw %}
+In[1]:= Union[Select[chars, Length[#] >= 4 &][[All, 4]]]
+
+Out[1]= {"Alias", "Auto", "Close", "CompoundPrefix", "Infix", 
+        "InfixOpen", "LargeOp:Prefix", "Letter", "NonBreakingAfterLetter",
+        "NonBreakingBeforeLetter", "Open", "Postfix", "Prefix", "WhiteSp"}
+{% endraw %}
+{% endhighlight %}
+
 
 These are the ones we want:
 
-    affixes = {"Close", "CompoundPrefix", "Infix", "InfixOpen",
-            "LargeOp:Prefix", "Open", "Postfix", "Prefix"};
-    ops = Select[chars, Length[#] >= 4 && MemberQ[affixes, #[[4]]]&];
-    Length[ops]
->     337
+{% highlight wolfram %}
+{% raw %}
+In[1]:= affixes = {"Close", "CompoundPrefix", "Infix", "InfixOpen",
+                "LargeOp:Prefix", "Open", "Postfix", "Prefix"};
+        ops = Select[chars, Length[#] >= 4 && MemberQ[affixes, #[[4]]]&];
+        Length[ops]
+
+Out[1]= 337
+{% endraw %}
+{% endhighlight %}
 
 The character `〚` is the only one listed with affix `InfixOpen`, while the other matchfix (circumfix) operators are under `Open` or `Close`. Most of them appear to function like parentheses, but their rendering in the frontend is flakey. We also have `LargeOp:Prefix` operators like ∑ (`\[Sum]`), and then ∇ (`\[Del]`), which is the only operator with affix `CompoundPrefix`. 
 
@@ -160,21 +172,33 @@ We have scoured the documentation, taken a deep dive into Mathematica system fil
 
 Our strategy in this section is to make a list of every Unicode character in the character range used by Mathematica that is *not* a letter, [letter-like form](https://reference.wolfram.com/language/tutorial/LettersAndLetterLikeForms.html), or member of `` System`Convert`MLStringDataDump`$Operators ``, which we asign the shorter alias `ops`. Using the definition of `LetterLikeQ[]` along with the opaque built-in function `` Internal`SymbolNameQ[] ``, we can search the list of Unicode characters to find the complement of the set of characters we can already categorize. Our search criteria is as follows:
 
-    crit[c_] := ! Internal`SymbolNameQ[c] && ! DigitQ[c] &&  ! 
-    StringMatchQ[c, WhitespaceCharacter] && ! MemberQ[ops, c];
+{% highlight wolfram %}
+{% raw %}
+In[1]:= crit[c_] := ! Internal`SymbolNameQ[c] && ! DigitQ[c] &&  ! 
+        StringMatchQ[c, WhitespaceCharacter] && ! MemberQ[ops, c];
+{% endraw %}
+{% endhighlight %}
 
 The following code produces a table of code/character pairs matching the criteria above:
 
-    Select[
-        Table[{i, FromCharacterCode[i]}, {i, 65535}], 
-        crit[#[[2]]]&
-    ]
+{% highlight wolfram %}
+{% raw %}
+In[1]:= Select[
+            Table[{i, FromCharacterCode[i]}, {i, 65535}], 
+            crit[#[[2]]]&
+        ]
+{% endraw %}
+{% endhighlight %}
 
 The result is a bit of a surprise: We get a seemingly random handful of ASCII characters, Association brackets, several of the `LargeOp:Prefix` operators that are missing in the other lists along with a small handful of other Unicode operators also from `UnicodeCharacters.tr`, and, most interestingly, single character versions of multicharacter box operators that are not in any other source. These box operators are:
 
-    0xf7c0: \), 0xf7c1: \!, 0xf7c2: \@, 0xf7c5: \%, 
-    0xf7c6: \^, 0xf7c7: \&, 0xf7c8: \*, 0xf7c9: \(, 
-    0xf7ca: \_, 0xf7cb: \+, 0xf7cc: \/, 0xf7cd: \`
+{% highlight text%}
+{% raw %}
+0xf7c0: \), 0xf7c1: \!, 0xf7c2: \@, 0xf7c5: \%, 
+0xf7c6: \^, 0xf7c7: \&, 0xf7c8: \*, 0xf7c9: \(, 
+0xf7ca: \_, 0xf7cb: \+, 0xf7cc: \/, 0xf7cd: \`
+{% endraw %}
+{% endhighlight %}
 
 The list also includes the nonoperator characters `0xf767: \[ErrorIndicator]`, `0x2043: \[SkeletonIndicator]`, the ASCII delete character `0x007f` (127), the ASCII bell character `0x0007`, and `0xf3ad`, which is an unassigned noncharacter Unicode codepoint "for private use."
 

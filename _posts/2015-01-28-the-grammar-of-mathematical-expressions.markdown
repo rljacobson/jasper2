@@ -19,7 +19,9 @@ Using computers to do automatic translation has a long and rich history in compu
 
 An exercise every compiler construction student is given is to construct a grammar for simple mathematical expressions. This exercise is particularly easy with [ANTLR 4](http://www.antlr.org), a lexer and parser generator that can accept grammars than many other compiler tools would reject. Here is an ANTLR 4 grammar for simple math expressions.
 
-```
+
+{% highlight antlr %}
+{% raw %}
 expr
 	:	INT //numbers
 	|	ID  //variables
@@ -29,8 +31,9 @@ expr
 	|	expr ('/' | '*') expr	//explicit division/multiplication
 	|	expr ('+' | '-') expr	//addition/subtraction
 	;
+{% endraw %}
+{% endhighlight %}
 
-```
 For the input `4*x^2 - 3*x + -2` this grammar gives the following parse tree. 
 
 <img style="width:auto;" src="assets/images/posts/MathGrammar/simple_parse_tree.png" width="300" height="241">
@@ -41,7 +44,8 @@ ANTLR conveniently handles the order of operations for us by giving precedence t
 
 Mathematicians don't like to write an explicit symbol for multiplication unless they're compelled to. We prefer to write `4x^2 - 3x + -2` instead of `4*x^2 - 3*x + -2`. We might naively modify our grammar as follows.
 
-```
+{% highlight antlr %}
+{% raw %}
 expr
 	:	INT //numbers
 	|	ID  //variables
@@ -52,10 +56,13 @@ expr
 	|	expr '*'? expr 	//explicit multiplication
 	|	expr ('+' | '-') expr 	//addition/subtraction
 	;
-```
+{% endraw %}
+{% endhighlight %}
+
 The ? after the '*' indicates that the * symbol is optional--it can be omitted. But this doesn't work as expected! This grammar parses `7 + 3` as `7*(+3)`, which is not what we want. Splitting implicit multiplication off as a seperate alternative appears to solve this problem.
 
-```
+{% highlight antlr %}
+{% raw %}
 expr
 	:	INT //numbers
 	|	ID  //variables
@@ -67,7 +74,9 @@ expr
 	|	expr expr	//implicit multiplication
 	|	expr ('+' | '-') expr	//addition/subtraction
 	;
-```
+{% endraw %}
+{% endhighlight %}
+
 But now we have a new problem: implicit multiplication does not respect order of operations! This grammar generates the following parse tree for the input `4x+3`.
 
 <img style="width:auto;" src="assets/images/posts/MathGrammar/modified_parse_tree.png">
@@ -78,7 +87,8 @@ What's going on? Precedence only applies to tokens, e.g. operator symbols, and o
 
 But we can enforce order of operations by having a hierarchy of production rules like the following general pattern [1].
 
-```
+{% highlight antlr %}
+{% raw %}
 type_variable: ...
 
 type_primary: type_variable
@@ -92,11 +102,13 @@ type_tertiary: type_secondary
 
 type_expression: type_tertiary
               | ...
-```
+{% endraw %}
+{% endhighlight %}
 
 So instead of relying on ANTLR to determine precedence according to the order of each alternative, we bake it into the grammar itself. We might rewrite our math expression grammar as follows [2]. 
 
-```
+{% highlight antlr %}
+{% raw %}
 term
 	:	INT
 	|	ID
@@ -127,11 +139,13 @@ expr
 	:	multdiv
 	|	expr ('+' | '-') multdiv //addition/subtraction
 	;
-```
+{% endraw %}
+{% endhighlight %}
 
 Notice I awkwardly included exponentiation in the factor production relying on ANTLR to implicitly determine it's precedence over implicit multiplication. This suggests that the above grammar is overcomplicated, that is, we can collapse much of this hierarchy and let ANTLR do some of the work. Here is our final grammar.
 
-```
+{% highlight antlr %}
+{% raw %}
 term
 	:	LEAF
 	|	'(' expr ')'	//parentheses
@@ -152,7 +166,8 @@ expr
 	|	expr '*' expr	//explicit multiplication
 	|	expr ('+' | '-') expr	//addition/subtraction
 	;
-```
+{% endraw %}
+{% endhighlight %}
 
 And the parse tree for `4x^2 - 3x + -2`.
 

@@ -33,6 +33,9 @@
     <meta property="og:image:width" content="2000" />
     <meta property="og:image:height" content="666" />{% endif %}
 
+    {% if page.MathJax %}
+      {% include mathjax.html %}
+    {% endif %}
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
