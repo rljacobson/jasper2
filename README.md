@@ -1,3 +1,20 @@
+# Theme for rljacobson.github.io
+
+This is the repository for the theme for [rljacobson.github.io](https://rljacobson.github.io). It is a slightly modified version of Jasper2. 
+
+Added:
+
+* MathJax support. Set `MathJax: True` in the page YAML header to turn on MathJax for that page.
+* [Tag cloud](https://github.com/jekyller/jasper2/pull/23), a Jasper2 pull request by [rahidelvi](https://github.com/rahidelvi).
+
+Changed:
+
+* Syntax highlighting uses Pygments, because Rouge has no highlighter for Wolfram Language.
+* Syntax highlighting theme is [colorful](http://jwarby.github.io/jekyll-pygments-themes/languages/javascript.html) with minor modifications for Wolfram Language code.
+* Minor changes to CSS styling to improve support for highlighted codeblocks.
+
+The original Jasper2 README.md file follows....
+
 ## Jasper2
 
 [![Build Status](https://travis-ci.org/jekyller/jasper2.svg?branch=master)](https://travis-ci.org/jekyller/jasper2)
