@@ -19,7 +19,6 @@ What *is* a programming language, really? Most programming languages in producti
 
 But what if it did? What would a language specification look like for Wolfram Language? If you were tasked with writing the spec, how would you do it, and what choices would you make? This is how we shall imagine ourselves throughout this series of articles: as language documentarians reconstructing the syntactic and semantic structure of Wolfram Language from its usage.
 
-
 Some of the information in this series grew out of my work on [FoxySheep](https://github.com/rljacobson/FoxySheep), an open source parser for the Wolfram Language. Parts [1](defining-the-wolfram-language-part-1-finding-operators) and [2](defining-the-wolfram-language-part-2-operator-properties) began life as an answer I submitted to [mathematica.stackexchange.com](https://mathematica.stackexchange.com/a/180033/27662). I try to keep the answer up to date.
 
 
@@ -38,7 +37,7 @@ We are also faced with a demarcation problem: Where does the *language* of Wolfr
 
 The demarcation problem extends to what might be considered implementation details. For example, [Mathematica renames "local" variables](https://reference.wolfram.com/language/tutorial/VariablesInPureFunctionsAndRules.html) within an inner scope to unique names to avoid potential name collisions. There presumably needs to be some kind of mechanism to maintain λ calculus semantics for pure functions, but maybe that is an implementation detail rather than part of the hypothetical language spec.
 
-We will have more to say about the technological and philosophical implications of these questions throughout this series. 
+We will have more to say about the technological and philosophical implications of these questions later in this series. 
 
 ## Why do we care?
 

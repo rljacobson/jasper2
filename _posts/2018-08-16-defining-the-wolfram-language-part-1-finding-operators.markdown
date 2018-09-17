@@ -15,7 +15,7 @@ author: robert
 
 # Finding All Wolfram Language Operators
 
-In this second article, Part 1 of an *n* part series on *Defining the Wolfram Language*, we start getting our hands dirty hunting down every single operator in Mathematica and each operator's linguistic properties. To my knowledge, nobody outside of Wolfram has created such an exhaustive list before.<!--more--> The operator properties we hope to document are arity, affix, associativity, and precedence. In the next article, "[Generalizing PEMDAS: What is an operator?](/blog/2018/09/03/defining-the-wolfram-language-part-1-terminology/)," we will define and discuss the signficance of these linguistic properties of operators for programming languages generally. If these terms are foreign to you, do not worry, you will not need to know what these terms mean for this article, but you can read the next article before reading Part 1 without any confusion.
+In this second article, Part 1 of an *n* part series on *Defining the Wolfram Language*, we start getting our hands dirty hunting down every single operator in Mathematica and each operator's linguistic properties. To my knowledge, nobody outside of Wolfram has created such an exhaustive list before.<!--more--> The operator properties we hope to document are arity, affix, associativity, and precedence. In the next article, "[Generalizing PEMDAS: What is an operator?](generalizing-pemdas-what-is-an-operator)," we will define and discuss the signficance of these linguistic properties of operators for programming languages generally. If these terms are foreign to you, do not worry, you will not need to know what these terms mean for this article, but you can read the next article before reading Part 1 without any confusion.
 
 ## Data Sources
 
