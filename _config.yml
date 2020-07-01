@@ -1,12 +1,13 @@
 # Jekyll configuration
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 paginate: 100 # it will paginate after this number
 language: 'en-us'
 
 kramdown:
   # use Github Flavored Markdown
   input: "GFM"
+#  syntax_highlighter: rouge
 
 
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
@@ -32,7 +33,6 @@ navigation: True # show the navbar links
 #facebook: ghost # replace by your username
 github: rljacobson
 linkedin: robert-jacobson-7149986
-googleplus: +RobertJacobson
 email: rljacobson@gmail.com
 
 

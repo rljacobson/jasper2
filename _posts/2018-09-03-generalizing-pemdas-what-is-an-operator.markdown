@@ -18,7 +18,7 @@ In programming languages, an *operator* is a symbol used to represent a specific
 
 ## Computation with Expressions
 
-Virtually all programming languages have *expressions*, like `2 + 4`, which consist of *operators* (the `+` operator in `2 + 4`) and their *operands* (or *arguments*; the `2` and the `4`), that is, the things operators operate on.  This language is barrowed from mathematics where, for example, $17/2 + \sin(\pi/2)$ is an expression that *evaluates* to the *value* $19/2$. Most programming lanugages also have other language constructs like statements and declarations that are not expressions. In some languages, like Wolfram Language, [*everything is an expression*](https://reference.wolfram.com/language/tutorial/EverythingIsAnExpression.html). In these languages, an entire program itself is an expression, albeit possibly a very complex one, and executing a program is called *evaluation*.
+Virtually all programming languages have *expressions*, like `2 + 4`, which consist of *operators* (the `+` operator in `2 + 4`) and their *operands* (or *arguments*; the `2` and the `4`), that is, the things operators operate on.  This language is barrowed from mathematics where, for example, $17/2 + \sin(\pi/2)$ is an expression that *evaluates* to the *value* $19/2$. Most programming languages also have other language constructs like statements and declarations that are not expressions. In some languages, like Wolfram Language, [*everything is an expression*](https://reference.wolfram.com/language/tutorial/EverythingIsAnExpression.html). In these languages, an entire program itself is an expression, albeit possibly a very complex one, and executing a program is called *evaluation*.
 
 ## Properties of Operators
 
@@ -48,7 +48,7 @@ The *affix* of an operator refers to the operator's position within an expressio
 | Infix: between its operands | Addition: `+` | $2 + 4$ |
 | Matchfix (Circumfix): surrounds its operand(s) | Floor function: `⌊ ⌋` |  $\lfloor{2.78}\rfloor = 2$ |
 
-The affix of operators with more than two operands defy easy categorization. To illustrate, suppose we wish to invent our own ternary operator, and we have the symbols `@`, `#`, `$`, and `&` available to use to represent our operator if we need them. If `a`, `b`, and `c` are operands, then we could define the operator as `@ a # b $ c &` or `a # b $ c &` or `@ a # b $ c` or `a # b $ c`. Or instead of using different symbols to separate the operands, we could use just one symbol, as Mathematica does with the `Span` operator: `i ;; j ;; k`. 
+The affix of operators with more than two operands defy easy categorization. To illustrate, suppose we wish to invent our own ternary operator, and we have the symbols `@`, `#`, `$`, and `&` available to use to represent our operator if we need them. If `a`, `b`, and `c` are operands, then we could define the operator as `@ a # b $ c &` or `a # b $ c &` or `@ a # b $ c` or `a # b $ c`. Or instead of using different symbols to separate the operands, we could use just one symbol, as Wolfram Language does with the `Span` operator: `start ;; stop ;; step`. 
 
 ### Associativity
 

@@ -42,7 +42,7 @@ ANTLR conveniently handles the order of operations for us by giving precedence t
 
 ## The grammatical challenge of implicit multiplication
 
-Mathematicians don't like to write an explicit symbol for multiplication unless they're compelled to. We prefer to write `4x^2 - 3x + -2` instead of `4*x^2 - 3*x + -2`. We might naively modify our grammar as follows.
+Mathematicians don't like to write an explicit symbol for multiplication unless we're compelled to. We prefer to write `4x^2 - 3x + -2` instead of `4*x^2 - 3*x + -2`. We might naively modify our grammar as follows.
 
 {% highlight antlr %}
 {% raw %}
@@ -59,7 +59,7 @@ expr
 {% endraw %}
 {% endhighlight %}
 
-The ? after the '*' indicates that the * symbol is optional--it can be omitted. But this doesn't work as expected! This grammar parses `7 + 3` as `7*(+3)`, which is not what we want. Splitting implicit multiplication off as a seperate alternative appears to solve this problem.
+The `?` after the `*` indicates that the `*` symbol is optional--it can be omitted. But this doesn't work as expected! This grammar parses `7 + 3` as `7*(+3)`, which is not what we want. Splitting implicit multiplication off as a seperate alternative appears to solve this problem.
 
 {% highlight antlr %}
 {% raw %}
@@ -77,7 +77,7 @@ expr
 {% endraw %}
 {% endhighlight %}
 
-But now we have a new problem: implicit multiplication does not respect order of operations! This grammar generates the following parse tree for the input `4x+3`.
+But now we have a new problem: implicit multiplication does not respect order of operations. This grammar generates the following parse tree for the input `4x+3`.
 
 <img style="width:auto;" src="assets/images/posts/MathGrammar/modified_parse_tree.png">
 
@@ -142,7 +142,7 @@ expr
 {% endraw %}
 {% endhighlight %}
 
-Notice I awkwardly included exponentiation in the factor production relying on ANTLR to implicitly determine it's precedence over implicit multiplication. This suggests that the above grammar is overcomplicated, that is, we can collapse much of this hierarchy and let ANTLR do some of the work. Here is our final grammar.
+Notice I awkwardly included exponentiation in the factor production relying on ANTLR to implicitly determine its precedence over implicit multiplication. This suggests that the above grammar is overcomplicated, that is, we can collapse much of this hierarchy and let ANTLR do some of the work. Here is our final grammar.
 
 {% highlight antlr %}
 {% raw %}
@@ -177,9 +177,9 @@ Success!
 
 ## Conclusion
 
-You can see that there is a reason most languages--even computer algebra systems--require an explicit multiplication symbol. Requiring a * is a small price to pay for a simpler language grammar. 
+You can see that there is a reason most languages--even computer algebra systems--require an explicit multiplication symbol. Requiring a `*` is a small price to pay for a simpler language grammar. 
 
-This is a great example of how tweaking a very simple problem can sometimes produce a very challenging problem. As a math teacher I really like this example because there is so much opportunity to teach. We review the concept of order of operations and how order of operations works in mathematics, and we learn about a strategy for dealing with order of operations in formal grammars. All of this from a very applied, very real-world problem that the students can value. 
+This is a great example of how tweaking a very simple problem can sometimes produce a very challenging problem. As a math teacher I really like this example, because there is so much opportunity to teach. We review the concept of order of operations and how order of operations works in mathematics, and we learn about a strategy for dealing with order of operations in formal grammars. All of this is done from a very applied, very real-world problem that the students can value. 
 
 But the punchline shouldn't be that writing a formal grammar for a math expression parser is hard. Rather, writing grammars in general is hard, language itself is hard. This challenge came up in the context of math expressions, but it could just as easily come up in the context of parsing any language. John Levine [3] calls writing a grammar with error recovery a "black art," Cooper and Torczon [4] call compiler construction an "art and science," Michael L. Scott [5] refers to the "art" of language design and cites Donald Knuth [6] as suggesting programming can be regarded as the "art of telling another human being what one wants the computer to do." I like to think that what these heavyweights are telling us is that we should embrace the difficulty as something beautiful. 
 
@@ -187,7 +187,7 @@ But the punchline shouldn't be that writing a formal grammar for a math expressi
 
 #### Notes
 
-\[1]: This pattern is described by Laurence Finston at [http://lists.gnu.org/archive/html/help-bison/2005-08/msg00004.html](http://lists.gnu.org/archive/html/help-bison/2005-08/msg00004.html).
+\[1]: This standard pattern is described by Laurence Finston at [http://lists.gnu.org/archive/html/help-bison/2005-08/msg00004.html](http://lists.gnu.org/archive/html/help-bison/2005-08/msg00004.html).
 
 \[2]: This implementation of the general pattern is essentially stackoverflow user rici's, [http://stackoverflow.com/questions/12875573/how-can-i-have-an-implicit-multiplication-rule-with-bison](http://stackoverflow.com/questions/12875573/how-can-i-have-an-implicit-multiplication-rule-with-bison).
 

@@ -20,7 +20,7 @@ The [IELR(1) parsing algorithm was developed in 2008 by Joel E. Denny][1] as par
 
 ## LR(1) Algorithms 
 
-The [LR(1)](https://en.wikipedia.org/wiki/Canonical_LR_parser) part of IELR(1) stands for **L**eft to right, **R**ightmost derivation with 1 lookahead token. LR(1) parsers are also called canonical parsers. This class of parsing algorithms employs a bottom-up, shift-reduce parsing strategy with a stack and [state transition table](https://en.wikipedia.org/wiki/State_transition_table) determining the next action to take during parsing.
+The [LR(1)](https://en.wikipedia.org/wiki/Canonical_LR_parser) part of IELR(1) stands for **L**eft to right, **R**ightmost derivation with **1** lookahead token. LR(1) parsers are also called canonical parsers. This class of parsing algorithms employs a bottom-up, shift-reduce parsing strategy with a stack and [state transition table](https://en.wikipedia.org/wiki/State_transition_table) determining the next action to take during parsing.
 
 Historically, LR(1) algorithms have been disadvantaged by large memory requirements for their transition tables. Pager's improvement was to develop a method of combining the transition states when the transition table is generated, significantly reducing the size of the table. Thus Pager's algorithm makes LR(1) parsers competitive with other parsing strategies with respect to space and time efficiency. The phrase "minimal LR(1) parser" refers to the minimal size of the transition table introduced by Pager's algorithm. 
 
@@ -39,4 +39,4 @@ Denny and Malloy studied the source of the deficiencies of Pager's algorithm by 
 
 <span style="font-size:x-small;">This article is based on my [answer to a question on StackExchange](https://cs.stackexchange.com/questions/3461/what-is-an-ielr1-parser/99463#99463).</span>
 
-  [1]: https://doi.org/10.1016/j.scico.2009.08.001
+[1]: https://doi.org/10.1016/j.scico.2009.08.001
