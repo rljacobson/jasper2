@@ -18,11 +18,11 @@ This article is an expanded version of the math part of [an article I
     behind test
     efficiency, Bayes’ Theorem. This misinterpretation has lead to dangerous public policy positions.**](https://medium.com/@arhyne/covid-19-population-testing-vs-thoughts-and-prayers-454e64946dde) Anyone with a math allergy is invited to read that article instead.
 
-I and Dr. Andrew Rhyne, marine biologist and my 
+I and Dr. Andrew Rhyne, marine biologist and my
 [longtime collaborator in fighting wildlife crime](http://natureintelligence.trade/), have
  spent a lot of time in the last several months working on how best to fight the
  COVID-19 pandemic, especially in college communities like
-  our own Roger Williams University. 
+  our own Roger Williams University.
 
 ## How understanding Bayes’ Theorem is crucial in informing health policies
 
@@ -49,7 +49,7 @@ This formula expresses a relationship between four probabilities. It’s best ex
 
 A word of warning: It is _very easy_ to mix up these terms. Just keep referring back to this table whenever you need to.
 
-The first thing to understand is this: The probability of having COVID-19 _given_ that you already know the test came out positive, which we will denote by $P(cov\mid pos)$, is a _different_ probability from the probability of the test coming out positive _given_ you have COVID-19, which we likewise denote by  $P(pos\mid cov)$. The difference, of course, is what information you already know. The question, “If an animal is in the chicken coup, what’s the probability that it is a chicken?,” $P(coup \mid chicken)$ in our notation, is a different question from, “If the animal is a chicken, what is the probability that it is in the coup?,” $P(chicken\mid coup)$. It could be that my chickens are indoor chickens that never leave the coup, so $P(coup \mid chicken)=100\%$, but I also keep an equal number of turkeys in the coup, so $P(chicken \mid coup) = 50\%$.[^turkeys]
+The first thing to understand is this: The probability of having COVID-19 _given_ that you already know the test came out positive, which we will denote by $P(cov\mid pos)$, is a _different_ probability from the probability of the test coming out positive _given_ you have COVID-19, which we likewise denote by  $P(pos\mid cov)$. The difference, of course, is what information you already know. The question, “If an animal is in the chicken coup, what’s the probability that it is a chicken?,” $P(chicken \mid coup)$ in our notation, is a different question from, “If the animal is a chicken, what is the probability that it is in the coup?,” $P(coup\mid chicken)$. It could be that my chickens are indoor chickens that never leave the coup, so $P(coup \mid chicken)=100\%$, but I also keep an equal number of turkeys in the coup, so $P(chicken \mid coup) = 50\%$.[^turkeys]
 
 You are now fluent in the alien language that makes up the mathematical notation of Bayes’ Theorem. The power of Bayes’ Theorem is that we can convert from $P(chicken \mid coup)$ into $P(coup\mid chicken)$ using the unconditional probabilities of an animal being a chicken regardless of location, $P(chicken)$, and the probability of an animal being in the coup regardless of species, $P(coup)$. With COVID-19 testing, we can compute the probability that you are infected with COVID-19 given that your test result is positive using knowledge of the probability that you will test positive given that you really are infected:
 
@@ -106,11 +106,11 @@ We want nobody in the population to be infected, and if nobody is infected, then
 
 ### False Negatives
 
-Some have argued that we should be concerned instead about false negatives. Suppose, for example, that a test is only capable of identifying an infected sample 50% of the time. That means roughly that every time the population is tested, half of the infected individuals are identified and removed (via quarantine). If removing half of all infected individuals from a college campus sounds like an obviously good idea to you, that's is because it is. Simple arithmetic shows whole population testing — especially repeated whole population testing — reduces the number of infected individuals in the population. (Sophisticated models do as well: See [Larremore et al.](https://larremorelab.github.io/covid-calculator3); [Dawoud, RSAP.](https://www.sciencedirect.com/science/article/pii/S1551741120305313)) 
+Some have argued that we should be concerned instead about false negatives. Suppose, for example, that a test is only capable of identifying an infected sample 50% of the time. That means roughly that every time the population is tested, half of the infected individuals are identified and removed (via quarantine). If removing half of all infected individuals from a college campus sounds like an obviously good idea to you, that's is because it is. Simple arithmetic shows whole population testing — especially repeated whole population testing — reduces the number of infected individuals in the population. (Sophisticated models do as well: See [Larremore et al.](https://larremorelab.github.io/covid-calculator3); [Dawoud, RSAP.](https://www.sciencedirect.com/science/article/pii/S1551741120305313))
 <figure>
 <img alt="Sample simulation trajectories from fully mixed model demonstrating the effectiveness of whole population testing." src="assets/images/posts/Covid19Testing/LarremoreModel.png" style="width:auto">
 <figcaption style="font-size: small; font-weight: bold; text-align: center">
-Sample simulation trajectories from fully mixed model demonstrating the effectiveness of whole population testing. Notice the scale of the $y$-axis. (Figure S1 of 
+Sample simulation trajectories from fully mixed model demonstrating the effectiveness of whole population testing. Notice the scale of the $y$-axis. (Figure S1 of
 <a href="https://www.medrxiv.org/content/10.1101/2020.06.22.20136309v2">Larremore et al. preprint</a>)
 </figcaption>
 </figure>
@@ -145,7 +145,7 @@ This misinterpretation of the significance of Bayes’ Theorem and of false posi
 Some widespread claims about population testing are likely to be true. For example, several scientists and public health specialists have pointed out that random population sampling is unlikely to make a significant impact on public health. This claim is backed by strong scientific evidence. There is also near universal agreement that serology (antibody) tests, or any other tests currently available for past or present nCOV-SARS-2 infection, should not be used to clear someone as healthy and therefore safe to join a group. Since these conversations necessarily use a lot of technical language—serology tests, random sampling—it is all too easy for nonspecialists to hear one thing and understand another. It matters a great deal how scientists talk about these technical topics. Scientists need to anticipate sources of confusion, like the difference between sensitivity and specificity, or false positives and false negatives, or random sampling and whole population testing.
 
 It is possible that I am grossly misinformed regarding the characteristics of qPCR testing for COVID-19, or that I am
- wrong in thinking most people have significant misconceptions about leprosy. But with mathematics, nobody needs to trust what I say is true on my authority as a mathematician. Anyone with sufficient mathematical training can see for themselves. To make it easier for nonscientists to do this kind of verification, I have built an online tool that anyone can use to compute outcomes of interest based on estimates of a test’s performance characteristics that can be adjusted with a slider. The source code is also available on GitHub so that anyone who finds a mistake in the code can report the error or even submit a fix. 
+ wrong in thinking most people have significant misconceptions about leprosy. But with mathematics, nobody needs to trust what I say is true on my authority as a mathematician. Anyone with sufficient mathematical training can see for themselves. To make it easier for nonscientists to do this kind of verification, I have built an online tool that anyone can use to compute outcomes of interest based on estimates of a test’s performance characteristics that can be adjusted with a slider. The source code is also available on GitHub so that anyone who finds a mistake in the code can report the error or even submit a fix.
 <figure>
 <a href="https://www.robertjacobson.dev/BayesTesting/BayesTesting.html">
 <img alt="Online probability calculator" src="assets/images/posts/Covid19Testing/Screenshot.png" style="width:auto; border: 1px solid #2e2e2e">
@@ -185,7 +185,7 @@ For communities that are good candidates for whole population testing, the argum
 What should Colleges and Communities do? There is no one-size-fits-all solution. What does seem clear is that unless campuses are willing to take dramatic measures that will be hard for colleges and universities to swallow, the outcome is likely to be grim. We have no choice but to pay a steep price while we wait for the endgame of this pandemic. We can choose to pay the financial costs of investing in the infrastructure and resources for wide-scale testing, or we can save our money and pay instead with the human lives of those that will succumb to the disease we choose not to test for.
 
 <hr>
-<div class="footnotes">Background image credit: <a href="https://www.flickr.com/photos/governortomwolf/49628500797">Governor Tom Wolf</a></div> 
+<div class="footnotes">Background image credit: <a href="https://www.flickr.com/photos/governortomwolf/49628500797">Governor Tom Wolf</a></div>
 
 [^ravens]: This paradox is more popularly—and more boringly—called the [Raven Paradox](https://en.wikipedia.org/wiki/Raven_paradox). Unfortunately, we are no closer to understanding why a raven is like a writing desk.
 
