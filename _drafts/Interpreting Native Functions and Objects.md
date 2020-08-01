@@ -39,7 +39,6 @@ First we define an enum for “native” things:
 // object class. The VM stores a reference to each class object so that it
 // can get the class for a given C++ object.
 enum CoreClass{
-  // core
   CLASS_BOOL = 0,
   CLASS_CHANNEL,
   CLASS_CHAR,

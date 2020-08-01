@@ -2,13 +2,12 @@ robert:
   username: robert
   name: Robert Jacobson
   location: Bristol, Rhode Island
-  url_full: https://rljacobson.github.io/blog/
-  url: rljacobson.github.io/blog/
-  bio:  I am an assistant professor of mathematics at Roger Williams University. I write about mathematics, education, mathematics education, computer science, and whatever interests me.
-  picture: assets/images/avatar.jpg
+  url_full: https://www.robertjacobson.dev
+  url: www.robertjacobson.dev
+  bio:  R&D-oriented computer scientist, mathematician, and software engineer with broad experience. I have particular interests in compilers, programming languages, and virtual machines; computer vision and machine learning; and algorithm design and mathematical programming.
+  picture: assets/images/avatar2.jpg
   github: rljacobson
-  linkedin: robert-jacobson-7149986
-  googleplus: +RobertJacobson
+  linkedin: robertljacobson
   email: rljacobson@gmail.com
   facebook: False
   twitter: False

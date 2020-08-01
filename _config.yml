@@ -17,7 +17,7 @@ baseurl: /
 title: After Math
 description: A blog by Robert Jacobson.
 author: Robert Jacobson
-cover: assets/images/blog-cover.jpg
+cover: assets/images/blog-cover2.jpg
 #logo: assets/images/blog-icon.png
 logo_dark: assets/images/favicon.png
 favicon: assets/images/favicon.png
@@ -32,7 +32,7 @@ navigation: True # show the navbar links
 #twitter: tryghost # replace by your username
 #facebook: ghost # replace by your username
 github: rljacobson
-linkedin: robert-jacobson-7149986
+linkedin: robertljacobson
 email: rljacobson@gmail.com
 
 
@@ -83,7 +83,7 @@ repo: blog
 branch: master
 relative_source: .
 destination: _site/
-production_url:  https://rljacobson.github.io/blog/
+production_url:  https://www.robertjacobson.dev/
 source_url:  https://github.com/rljacobson/blog/
 
 exclude:
